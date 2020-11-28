@@ -1,0 +1,63 @@
+.login {
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.2);
+	display: grid;
+	place-items: center;
+}
+
+.login__card {
+	width: calc(90% - 20px);
+	max-width: 400px;
+	background-color: rgb(255, 246, 249);
+	color: black;
+	/* height: 80%;
+	max-height: calc(500px - 20px); */
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: 0px 0px 11px -2px #f50057;
+	-webkit-box-shadow: 0px 0px 11px -2px #f50057;
+	-moz-box-shadow: 0px 0px 11px -2px #f50057;
+}
+.login__card > h1 {
+	color: #f50057;
+}
+
+.login__form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 20px 0;
+}
+
+/* .login__form > .MuiInput-root {
+	color: #f50057;
+}
+
+.login__form > .MuiInput-underline {
+	color: white;
+} */
+
+.login__form > .MuiButtonBase-root {
+	margin: 15px 0;
+}
+
+.login__cta {
+	font-weight: 600;
+}
+
+.login__cta > a > span {
+	color: #f50057;
+}
+
+.login input[type="email"],
+.login input[type="password"],
+.login input[type="text"] {
+	margin-top: 15px !important;
+}
+
+.gobackhomebtn {
+	color: #f50057;
+}

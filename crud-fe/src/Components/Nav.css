@@ -1,0 +1,143 @@
+nav {
+	width: 100%;
+	height: 10vh;
+	position: sticky;
+	top: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	z-index: 100;
+	color: white;
+	background-color: black;
+}
+
+.nav__hamburger {
+	cursor: pointer;
+	display: block;
+	z-index: 101;
+}
+
+.nav__branding {
+	font-size: 25px;
+	font-weight: 800;
+	color: #f50057;
+	font-family: "Anton", sans-serif;
+}
+
+.nav__bar {
+	width: 30px;
+	height: 3px;
+	background-color: #f50057;
+	transition: 0.5s;
+}
+
+.nav__bar:nth-child(2) {
+	margin: 5px 0;
+}
+
+.toggle .nav__bar:nth-child(1) {
+	transform: rotate(-45deg) translate(-6px, 4px);
+}
+
+.toggle .nav__bar:nth-child(2) {
+	opacity: 0;
+}
+
+.toggle .nav__bar:nth-child(3) {
+	transform: rotate(45deg) translate(-6px, -4px);
+}
+
+.nav__items {
+	position: fixed;
+	font-weight: 600;
+	right: 0;
+	top: 0;
+	width: 100%;
+	background-color: rgb(252, 178, 204);
+	color: #000;
+	height: 100vh;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.nav__items > ul {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.nav__items > ul > li {
+	margin-left: 20px;
+	padding: 10px 0;
+	cursor: pointer;
+	font-size: 25px;
+}
+
+.nav__items > ul > li::after {
+	transition: 0.3s;
+	content: "";
+	display: block;
+	width: 30%;
+	margin-top: 3px;
+	border-bottom: #f50057 solid 2px;
+}
+
+.nav__items > ul > li:hover::after {
+	width: 90%;
+}
+
+.nav__details {
+	display: flex;
+	align-items: center;
+	font-weight: 600;
+}
+
+.nav__details > p {
+	margin-right: 10px;
+}
+
+@media screen and (min-width: 768px) {
+	.nav__items {
+		position: static;
+		right: auto;
+		top: auto;
+		width: auto;
+		background-color: transparent;
+		color: white;
+		height: auto;
+		display: block;
+	}
+	.nav__items > ul {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		transform: translateY(0%);
+	}
+
+	.nav__items > ul > li::after {
+		content: "";
+		display: none;
+		width: 0%;
+		margin-top: 0;
+		border-bottom: none;
+	}
+
+	.nav__items > ul > li {
+		margin-left: 0;
+		font-size: 16px;
+	}
+
+	.nav__items > ul > li:nth-child(1) {
+		margin-right: 15px;
+	}
+
+	.nav__hamburger {
+		display: none;
+		cursor: pointer;
+	}
+}
