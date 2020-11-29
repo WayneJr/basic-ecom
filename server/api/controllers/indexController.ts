@@ -1,10 +1,9 @@
 import bcrypt from 'bcryptjs';
 import {Request, Response, NextFunction} from "express";
 import {User} from "../../models/User";
-// const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { validationResult } = require('express-validator');
-// const User = require('../../models/User');
+import jwt from 'jsonwebtoken';
+import { validationResult } from 'express-validator';
+
 
 const root = (req: any, res: any, next: any) => {
   res.send("<h1>Index route ni e</h1>");
@@ -32,7 +31,8 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 
     await user.save();
 
-    jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRE}, (err: any, token: any) => {
+    // @ts-ignore
+    jwt.sign({user}, process.env.JWT_SECRET, (err: any, token: any) => {
       if (err) throw err;
       res.status(200).json({
         success: true,
@@ -64,7 +64,8 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({message: 'Incorrect Password'});
 
-    jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRE}, (err: any, token: any) => {
+    // @ts-ignore
+    jwt.sign({user}, process.env.JWT_SECRET, (err: any, token: any) => {
       if (err) throw err;
       res.status(200).json({
         success: true,

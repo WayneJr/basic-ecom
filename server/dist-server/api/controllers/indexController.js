@@ -15,16 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.register = exports.login = exports.root = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const User_1 = require("../../models/User");
-// const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { validationResult } = require('express-validator');
-// const User = require('../../models/User');
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const express_validator_1 = require("express-validator");
 const root = (req, res, next) => {
     res.send("<h1>Index route ni e</h1>");
 };
 exports.root = root;
 const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const errors = validationResult(req);
+    const errors = express_validator_1.validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
@@ -41,7 +39,8 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         // @ts-ignore
         user.password = yield bcryptjs_1.default.hash(password, salt);
         yield user.save();
-        jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE }, (err, token) => {
+        // @ts-ignore
+        jsonwebtoken_1.default.sign({ user }, process.env.JWT_SECRET, (err, token) => {
             if (err)
                 throw err;
             res.status(200).json({
@@ -60,7 +59,7 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.register = register;
 const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const errors = validationResult(req);
+    const errors = express_validator_1.validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
@@ -74,7 +73,8 @@ const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
         const isMatch = yield bcryptjs_1.default.compare(password, user.password);
         if (!isMatch)
             return res.status(400).json({ message: 'Incorrect Password' });
-        jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE }, (err, token) => {
+        // @ts-ignore
+        jsonwebtoken_1.default.sign({ user }, process.env.JWT_SECRET, (err, token) => {
             if (err)
                 throw err;
             res.status(200).json({

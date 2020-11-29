@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-import {IUser} from '../api/middleware/userInterface';
+import mongoose, {Document, Model} from 'mongoose';
 
 const userSchema:mongoose.Schema = new mongoose.Schema({
     name: {
@@ -27,6 +26,6 @@ const userSchema:mongoose.Schema = new mongoose.Schema({
     timestamps: true
 });
 
-export const User = mongoose.model('User', userSchema)
+export const User: Model<Document> = mongoose.model('User', userSchema)
 
 // export mode;
