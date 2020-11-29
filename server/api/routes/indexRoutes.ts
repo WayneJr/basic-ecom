@@ -1,8 +1,12 @@
-import express = require("express");
-const router: express.Router = express.Router();
+import express from 'express';
+// const express = require('express');
+const router:express.Router = express.Router();
 
-import { root } from "../controllers/indexController";
+import { root, register, login } from '../controllers/indexController';
+// const { root } = require( "../controllers/indexController");
 
 router.get("/", root);
+router.post('/register', register);
+router.post('/login', login);
 
-module.exports = router;
+export {router};

@@ -1,11 +1,7 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-const userSchema = new mongoose_1.default.Schema({
+import mongoose from 'mongoose';
+import {IUser} from '../api/middleware/userInterface';
+
+const userSchema:mongoose.Schema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please add a name']
@@ -30,5 +26,7 @@ const userSchema = new mongoose_1.default.Schema({
 }, {
     timestamps: true
 });
-exports.User = mongoose_1.default.model('User', userSchema);
+
+export const User = mongoose.model('User', userSchema)
+
 // export mode;

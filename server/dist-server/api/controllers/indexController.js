@@ -28,14 +28,15 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
+    console.log(req.body);
     try {
         let user = yield User_1.User.findOne({ email });
         if (user) {
             // @ts-ignore
             return res.status(400).json({ msg: `${user.modelName} exists` });
         }
-        user = new User_1.User({ email, password });
+        user = yield User_1.User.create({ name, email, password });
         const salt = yield bcryptjs_1.default.genSalt(10);
         // @ts-ignore
         user.password = yield bcryptjs_1.default.hash(password, salt);
@@ -43,12 +44,18 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE }, (err, token) => {
             if (err)
                 throw err;
-            res.status(200).json({ token });
+            res.status(200).json({
+                success: true,
+                data: { token }
+            });
         });
     }
     catch (err) {
         console.log(err);
-        res.status(500).send('Error In saving User');
+        res.status(500).send({
+            success: false,
+            message: 'Error In saving User'
+        });
     }
 });
 exports.register = register;
@@ -59,7 +66,8 @@ const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
     }
     const { email, password } = req.body;
     try {
-        let user = yield User_1.User.findOne({ email });
+        let user = yield User_1.User.findOne({ email }).select('+password');
+        console.log(user);
         if (!user)
             return res.status(400).json({ message: `${User_1.User.modelName} doesn't exist` });
         // @ts-ignore
@@ -69,12 +77,18 @@ const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
         jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE }, (err, token) => {
             if (err)
                 throw err;
-            res.status(200).json({ token });
+            res.status(200).json({
+                success: true,
+                data: { token }
+            });
         });
     }
     catch (err) {
         console.log(err);
-        res.status(500).json({ message: 'Server Error' });
+        res.status(500).json({
+            message: 'Server Error',
+            details: err
+        });
     }
 });
 exports.login = login;
@@ -90,3 +104,4 @@ exports.login = login;
 //   },
 //
 // };
+//# sourceMappingURL=indexController.js.map
