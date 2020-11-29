@@ -1,0 +1,44 @@
+.add {
+	width: 100%;
+	height: 80vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.add__card {
+	width: calc(90% - 20px);
+	max-width: 400px;
+	background-color: rgb(255, 246, 249);
+	color: black;
+	/* height: 80%;
+	max-height: calc(500px - 20px); */
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: #f50057 solid 1px;
+	box-shadow: 0px 0px 11px -2px #f50057;
+	-webkit-box-shadow: 0px 0px 11px -2px #f50057;
+	-moz-box-shadow: 0px 0px 11px -2px #f50057;
+}
+
+.add__form {
+	display: flex;
+	flex-direction: column;
+}
+
+.add__form > .MuiInput-root {
+	margin: 10px 0;
+}
+
+.add__title {
+	margin: 15px 0 10px;
+	font-size: 22px;
+	color: #f50057;
+	font-weight: 600;
+}
+
+.add__form > .MuiButtonBase-root {
+	margin: 10px 0 15px;
+}
