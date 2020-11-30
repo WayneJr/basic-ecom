@@ -4,15 +4,51 @@ import "./Login.css";
 import { Input } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { useHistory, Link } from "react-router-dom";
+import { useStateValue } from "./StateProvider";
 
 function Login() {
+	let [{ user }, dispatch] = useStateValue();
 	let history = useHistory();
 	let [name, setName] = useState("");
 	let [email, setEmail] = useState("");
 	let [password, setPassword] = useState("");
 
-	let register = (e) => {
+	let register = async (e) => {
 		e.preventDefault();
+		var myHeaders = new Headers();
+		myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+		var urlencoded = new URLSearchParams();
+		urlencoded.append("name", name);
+		urlencoded.append("email", email);
+		urlencoded.append("password", password);
+
+		var requestOptions = {
+			method: "POST",
+			headers: myHeaders,
+			body: urlencoded,
+			redirect: "follow",
+		};
+
+		let fetchData = async () => {
+			const a = await fetch(
+				"https://basic-ecom.waynejr.repl.co/api/v1/auth/register",
+				requestOptions
+			);
+
+			const b = await a.json();
+			if (b.success) {
+				dispatch({
+					type: "SET_USER",
+					user: b.data.token,
+				});
+				history.push("/");
+			} else {
+				alert("Error creating user");
+			}
+		};
+
+		fetchData();
 	};
 
 	return (
@@ -26,6 +62,7 @@ function Login() {
 						placeholder="Username"
 						color="secondary"
 						required
+						value={name}
 						onChange={(e) => setName(e.target.value)}
 						autoFocus={true}
 					/>
@@ -33,6 +70,7 @@ function Login() {
 						type="email"
 						fullWidth={true}
 						placeholder="Email"
+						value={email}
 						color="secondary"
 						required
 						onChange={(e) => setEmail(e.target.value)}
@@ -43,6 +81,7 @@ function Login() {
 						placeholder="Password"
 						color="secondary"
 						required
+						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 					<Button
