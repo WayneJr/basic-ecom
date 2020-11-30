@@ -132,6 +132,10 @@ nav {
 		font-size: 16px;
 	}
 
+	.nav__items > ul > li:hover {
+		color: #f50057;
+	}
+
 	.nav__items > ul > li:nth-child(2) {
 		margin: 0 15px;
 	}

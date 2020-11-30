@@ -18,7 +18,6 @@ function Add() {
 			`https://basic-ecom.waynejr.repl.co/api/v1/products/${id.id}`
 		);
 		const b = await a.json();
-		console.log(b);
 		if (b.success) {
 			setName(b.data.name);
 			setQuantity(b.data.availableStock);
@@ -34,7 +33,7 @@ function Add() {
 	return (
 		<div className="add">
 			<div className="add__card">
-				<p className="add__title">Add Product</p>
+				<p className="add__title">Update Product</p>
 				<form className="add__form" onSubmit={handleSubmit}>
 					<Input
 						color="secondary"

@@ -8,7 +8,6 @@ function Home() {
 	useEffect(async () => {
 		const a = await fetch("https://basic-ecom.waynejr.repl.co/api/v1/products");
 		const b = await a.json();
-		console.log(b.data.products);
 		setProducts(b.data.products);
 	}, []);
 
