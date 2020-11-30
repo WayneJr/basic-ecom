@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Add.css";
 import { Input, Button } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 
 function Add() {
+	const id = useParams();
 	let [{ user }] = useStateValue();
 	const [file, setFile] = useState(null);
 	const [name, setName] = useState("");
@@ -12,33 +13,22 @@ function Add() {
 	const [quantity, setQuantity] = useState("");
 	let history = useHistory();
 
+	useEffect(async () => {
+		const a = await fetch(
+			`https://basic-ecom.waynejr.repl.co/api/v1/products/${id.id}`
+		);
+		const b = await a.json();
+		console.log(b);
+		if (b.success) {
+			setName(b.data.name);
+			setQuantity(b.data.availableStock);
+			setPrice(b.data.price);
+			setFile(b.data.image);
+		}
+	}, []);
+
 	let handleSubmit = (e) => {
 		e.preventDefault();
-		var myHeaders = new Headers();
-		myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-		myHeaders.append("Authorization", `Bearer ${user}`);
-
-		var formdata = new FormData();
-		formdata.append("name", name);
-		formdata.append("price", price);
-		formdata.append("availableStock", quantity);
-		formdata.append("image", file, file.name);
-
-		var requestOptions = {
-			method: "POST",
-			headers: myHeaders,
-			body: formdata,
-			crossDomain: true,
-			redirect: "follow",
-		};
-
-		fetch("https://basic-ecom.waynejr.repl.co/api/v1/products", requestOptions)
-			.then((response) => response.text())
-			.then((result) => {
-				console.log(result);
-				history.replace("/");
-			})
-			.catch((error) => console.log("error", error));
 	};
 
 	return (
@@ -68,9 +58,7 @@ function Add() {
 						value={quantity}
 						onChange={(e) => setQuantity(e.target.value)}
 					/>
-
 					<p className="file__label">Product Image</p>
-
 					<Input
 						color="secondary"
 						type="file"
@@ -79,10 +67,10 @@ function Add() {
 					/>
 					<Button
 						variant="contained"
-						color="secondary"
+						color="primary"
 						onClick={handleSubmit}
 						type="submit">
-						Add listing
+						Update
 					</Button>
 				</form>
 			</div>

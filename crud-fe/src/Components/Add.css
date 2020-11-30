@@ -42,3 +42,9 @@
 .add__form > .MuiButtonBase-root {
 	margin: 10px 0 15px;
 }
+
+.file__label {
+	width: 100%;
+	text-align: left;
+	color: #f50057;
+}

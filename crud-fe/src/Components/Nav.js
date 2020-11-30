@@ -42,6 +42,9 @@ function Nav() {
 				<div className="nav__items">
 					<ul>
 						<li onClick={toggleNav}>
+							<Link to="/">Catalog</Link>
+						</li>
+						<li onClick={toggleNav}>
 							<Link to="/add">Create Listing</Link>
 						</li>
 						<li onClick={logout}>

@@ -8,6 +8,7 @@ function Home() {
 	useEffect(async () => {
 		const a = await fetch("https://basic-ecom.waynejr.repl.co/api/v1/products");
 		const b = await a.json();
+		console.log(b.data.products);
 		setProducts(b.data.products);
 	}, []);
 
@@ -16,7 +17,16 @@ function Home() {
 			<p className="home__title">PRODUCTS</p>
 			<div className="home__showcase">
 				{products.length > 0 ? (
-					products.map((product) => <Product key={product._id} />)
+					products.map((product) => (
+						<Product
+							key={product._id}
+							name={product.name}
+							price={product.price}
+							availableStock={product.availableStock}
+							image={product.image}
+							id={product.slug}
+						/>
+					))
 				) : (
 					<p style={{ fontWeight: "600", fontStyle: "italic" }}>
 						Be the first to make a listing

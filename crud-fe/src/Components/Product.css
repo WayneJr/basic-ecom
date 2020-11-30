@@ -18,19 +18,29 @@
 	justify-content: space-evenly;
 }
 
-.product__bg {
+.bg-wrap {
 	position: absolute;
 	top: 0;
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background-color: blue;
-	z-index: -1;
+	background-color: black;
+	z-index: 0;
+	opacity: 0.5;
 }
 
 .product__name,
-.product__price {
+.product__price,
+.product__qty {
+	margin: 0 auto;
+	max-width: 90%;
 	font-size: 18px;
 	font-weight: 600;
 	color: white;
+	letter-spacing: 1px;
+	z-index: 1;
 }
+/* 
+.product__name {
+	font-size: 20px;
+} */
