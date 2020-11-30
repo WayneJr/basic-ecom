@@ -6,7 +6,7 @@ import { validationResult } from 'express-validator';
 
 
 const root = (req: any, res: any, next: any) => {
-  res.send("<h1>Index route ni e</h1>");
+  res.send('<h1>Index route ni e</h1><br><p>You can find the api docs <a href="https://documenter.getpostman.com/view/10955476/TVmJhyxL">here</a></p>');
 };
 
 const register = async (req: Request, res: Response, next: NextFunction) => {

@@ -1,15 +1,17 @@
 import dotenv from 'dotenv';
-// dotenv.config();
+dotenv.config();
 import express from 'express';
 import mongoose from 'mongoose';
 import { router as indexRoutes } from './api/routes/indexRoutes';
 import { router as productRoutes } from './api/routes/productRoutes';
-// @ts-ignore
-import cors from 'cors';
 import { cloudinaryConfig } from "./config/cloudinary";
+const app:express.Application = express();
+// @ts-ignore
+const cors = require("cors");
+
 // const indexRoutes = require('./api/routes/indexRoutes');
 
-const app:express.Application = express();
+
 const port:any = process.env.PORT || 3000;
 const dbUrl:any = process.env.DATABASE_URL;
 
@@ -19,6 +21,10 @@ mongoose.connect(dbUrl, {useUnifiedTopology: true, useNewUrlParser: true})
     .catch(error => console.log(error));
 
 app.use(cors());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use('*', cloudinaryConfig);

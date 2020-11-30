@@ -18,7 +18,7 @@ const User_1 = require("../../models/User");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const express_validator_1 = require("express-validator");
 const root = (req, res, next) => {
-    res.send("<h1>Index route ni e</h1>");
+    res.send('<h1>Index route ni e</h1><br><p>You can find the api docs <a href="https://documenter.getpostman.com/view/10955476/TVmJhyxL">here</a></p>');
 };
 exports.root = root;
 const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
